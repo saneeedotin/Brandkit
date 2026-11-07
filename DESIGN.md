@@ -32,7 +32,7 @@ Rules:
 - One accent per piece. Never mix two members' colours, except on a team post where each person's card wears their own.
 - The accent follows the same rules as lime: ink text on top, used as punctuation or a full ground, never as text on paper.
 - Grey fails contrast on pink (2.9 : 1) and orange (2.3 : 1). Use ink at 72% opacity for small text on those grounds.
-- In the visual brand kit (`brand-kit.html`), the dots in the nav switch the whole kit to each member's accent.
+- In the visual brand kit (`index.html`), the dots in the nav switch the whole kit to each member's accent.
 
 ### Contrast (WCAG)
 

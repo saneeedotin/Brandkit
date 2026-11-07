@@ -46,7 +46,7 @@ new/
 ├─ AI-CONTEXT.md        one file to paste into an AI tool
 ├─ tokens.css           CSS variables
 ├─ tokens.json          the same values for Figma, Canva or code
-├─ brand-kit.html       visual brand kit, opens offline in any browser
+├─ index.html           visual brand kit, opens offline in any browser
 └─ assets/
    ├─ logo/             wordmark SVGs (transparent and on a background)
    ├─ sigil/            sigil SVGs (transparent and square tiles)
