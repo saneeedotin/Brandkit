@@ -1,0 +1,59 @@
+/* saneee.in brand tokens. Same values as the website's src/app/globals.css. */
+@font-face {
+  font-family: "Saneee Brand";
+  src: url("assets/fonts/saneee-brand-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+/* Instrument Serif and Instrument Sans:
+   https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap */
+
+:root {
+  --ink: #080808;
+  --paper: #f6f6ef;
+  --lime: #c7ff2e;
+  --grey: #5f5f5a;
+
+  /* Team accents. One per piece; studio-wide work stays lime. */
+  --param: #c7ff2e;
+  --teesha: #ff80ec;
+  --hardik: #fb6f2b;
+  --smit: #ffdc69;
+  --accent: var(--lime);
+
+  --line-on-paper: rgba(8, 8, 8, 0.14);
+  --line-on-ink: rgba(246, 246, 239, 0.16);
+  --gutter: clamp(16px, 3vw, 48px);
+
+  --font-brand: "Saneee Brand", sans-serif;
+  --font-editorial: "Instrument Serif", serif; /* Voyage, once licensed */
+  --font-body: "Instrument Sans", sans-serif;
+
+  --text-display-lg: clamp(3rem, 7vw, 7rem);
+  --text-h1: clamp(2.75rem, 5.5vw, 5.5rem);
+  --text-h2: clamp(2.1rem, 4vw, 4rem);
+  --text-h3: clamp(1.65rem, 2.8vw, 2.75rem);
+  --text-h4: clamp(1.25rem, 1.8vw, 1.75rem);
+  --text-body-lg: clamp(1.125rem, 1.4vw, 1.25rem);
+  --text-body: 1.0625rem;
+  --text-label: 0.8125rem;
+
+  --leading-heading: 1.12;
+  --leading-body: 1.65;
+  --leading-label: 1.4;
+  --tracking-label: 0.08em;
+
+  --radius-panel: 4px;
+  --radius-pill: 999px;
+  --border-pill: 1.5px;
+  --tap-min: 44px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Put data-member on any wrapper to switch the accent to that person's colour. */
+[data-member="teesha"] { --accent: var(--teesha); }
+[data-member="hardik"] { --accent: var(--hardik); }
+[data-member="smit"] { --accent: var(--smit); }
+
+::selection { background: var(--accent); color: var(--ink); }
+.insane ::selection { background: var(--ink); color: var(--lime); }
