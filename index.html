@@ -210,13 +210,20 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .nav-links::-webkit-scrollbar { display: none; }
 .nav-links a { color: rgba(246, 246, 239, 0.62); text-decoration: none; white-space: nowrap; padding-block: 8px; border-bottom: 2px solid transparent; }
 .nav-links a:hover, .nav-links a[aria-current="true"] { color: var(--paper); border-bottom-color: var(--accent); }
-.who { display: flex; align-items: center; gap: 10px; flex: none; }
-.who-label { font-family: var(--font-brand); font-size: 0.85rem; color: rgba(246, 246, 239, 0.62); margin-right: 4px; }
-.dot { width: 18px; height: 18px; border-radius: 50%; border: 0; padding: 0; background: var(--c); cursor: pointer; outline-offset: 3px; box-shadow: 0 0 0 0 var(--paper); transition: box-shadow 0.2s, transform 0.2s; }
-.dot:hover { transform: scale(1.08); }
-.dot { position: relative; }
-.dot::before { content: ""; position: absolute; inset: -9px; } /* Bigger tap target than the dot. */
-.dot[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--ink), 0 0 0 3.5px var(--paper); }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* Accent picker: one pill showing the current colour, opening a small menu. */
+.who { position: relative; flex: none; }
+.who-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 14px 0 10px; border-radius: 999px; border: 1.5px solid var(--line-dark); background: none; color: var(--paper); font: 400 0.9rem var(--font-brand); cursor: pointer; }
+.who-btn:hover, .who-btn[aria-expanded="true"] { border-color: rgba(246, 246, 239, 0.5); }
+.who-btn .sw-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); }
+.who-btn svg { width: 10px; height: 10px; transition: transform 0.2s; }
+.who-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.who-menu { position: absolute; right: 0; top: calc(100% + 8px); display: grid; min-width: 200px; padding: 6px; border-radius: 8px; background: #141413; box-shadow: 0 0 0 1px var(--line-dark), 0 16px 40px rgba(0, 0, 0, 0.5); }
+.who-menu button { display: grid; grid-template-columns: 16px 1fr auto; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border: 0; border-radius: 4px; background: none; color: var(--paper); font: 400 0.95rem var(--font-brand); text-align: left; cursor: pointer; }
+.who-menu button:hover, .who-menu button:focus-visible { background: rgba(246, 246, 239, 0.08); outline: none; }
+.who-menu button i { width: 16px; height: 16px; border-radius: 50%; background: var(--c); }
+.who-menu button small { font-size: 0.8rem; color: rgba(246, 246, 239, 0.55); }
+.who-menu button[aria-pressed="true"] small::after { content: " ✓"; color: var(--paper); }
 @media (max-width: 1080px) { .nav-links { display: none; } .nav .in { justify-content: space-between; } }
 
 /* Motion */
@@ -282,9 +289,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .motion, .services, .social { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 520px) {
-  .who-label { display: none; }
 }
-@media (prefers-reduced-motion: reduce) { .dot { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .who-btn svg { transition: none; } }
 
 @media (max-width: 900px) {
   .logos, .faces, .details, .traits, .pairs { grid-template-columns: minmax(0, 1fr); }
@@ -314,12 +320,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <a href="#voice">Voice</a>
       <a href="#tokens">Tokens</a>
     </div>
-    <div class="who" role="group" aria-label="Team accent colour">
-      <span class="who-label" id="who-name">Param</span>
-      <button class="dot" type="button" data-member="param" style="--c:var(--param)" aria-label="Param's lime" aria-pressed="true"></button>
-      <button class="dot" type="button" data-member="teesha" style="--c:var(--teesha)" aria-label="Teesha's pink" aria-pressed="false"></button>
-      <button class="dot" type="button" data-member="hardik" style="--c:var(--hardik)" aria-label="Hardik's orange" aria-pressed="false"></button>
-      <button class="dot" type="button" data-member="smit" style="--c:var(--smit)" aria-label="Smit's yellow" aria-pressed="false"></button>
+    <div class="who">
+      <button class="who-btn" type="button" id="who-btn" aria-haspopup="true" aria-expanded="false" aria-controls="who-menu"><span class="sw-dot"></span><span id="who-name">Param</span><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="vh">: change accent colour</span></button>
+      <div class="who-menu" id="who-menu" role="group" aria-label="Team accent colour" hidden>
+        <button type="button" data-member="param" style="--c:var(--param)" aria-pressed="true"><i></i>Param<small>Lime</small></button>
+        <button type="button" data-member="teesha" style="--c:var(--teesha)" aria-pressed="false"><i></i>Teesha<small>Pink</small></button>
+        <button type="button" data-member="hardik" style="--c:var(--hardik)" aria-pressed="false"><i></i>Hardik<small>Orange</small></button>
+        <button type="button" data-member="smit" style="--c:var(--smit)" aria-pressed="false"><i></i>Smit<small>Yellow</small></button>
+      </div>
     </div>
   </div>
 </nav>
@@ -774,6 +782,25 @@ const setMember = (id) => {
 };
 document.querySelectorAll("button[data-member]").forEach((b) => b.addEventListener("click", () => setMember(b.dataset.member)));
 try { setMember(localStorage.getItem("saneee-member") || "param"); } catch { setMember("param"); }
+
+// Accent menu
+const whoBtn = document.getElementById("who-btn");
+const whoMenu = document.getElementById("who-menu");
+const openMenu = (open) => {
+  whoMenu.hidden = !open;
+  whoBtn.setAttribute("aria-expanded", String(open));
+  if (open) (whoMenu.querySelector('[aria-pressed="true"]') || whoMenu.querySelector("button")).focus();
+};
+whoBtn.addEventListener("click", () => openMenu(whoMenu.hidden));
+whoMenu.addEventListener("click", (e) => { if (e.target.closest("button")) { openMenu(false); whoBtn.focus(); } });
+whoMenu.addEventListener("keydown", (e) => {
+  const items = [...whoMenu.querySelectorAll("button")];
+  const i = items.indexOf(document.activeElement);
+  if (e.key === "ArrowDown") { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+  if (e.key === "ArrowUp") { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !whoMenu.hidden) { openMenu(false); whoBtn.focus(); } });
+document.addEventListener("click", (e) => { if (!whoMenu.hidden && !e.target.closest(".who")) openMenu(false); });
 
 // Scroll progress and the current section in the nav
 const progress = document.querySelector(".progress");
